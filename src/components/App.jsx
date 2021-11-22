@@ -9,7 +9,7 @@ class App extends Component {
         super(props);
         this.state = {
             music : [] ,
-            newSong : SongForm.state
+            newSong : []
         };
     }
 
@@ -25,12 +25,14 @@ class App extends Component {
     }
 
     async addSong() {
-        this.setState ( {
-           addedSong: SongForm.state
+        axios.post("http://127.0.0.1:8000/music/", this.state)
+        .then(response => {
+            this.setState ( {
+           newSong: response.data
            
-        } )
+        } )})
 
-        await axios.post("http://127.0.0.1:8000/music/", this.addedSong)
+        
         
     }
 
@@ -44,7 +46,7 @@ class App extends Component {
             <h1>Antoine's Music Library Front-End</h1>
            <SearchBar/>           
            <MusicTable music={this.state.music} />
-           <SongForm addedSong={SongForm.state}/>
+           <SongForm newSong={this.state.newSong}/>
            </div>
         )
     }

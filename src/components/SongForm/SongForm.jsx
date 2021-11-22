@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 
 
+
 class SongForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.song = { 
             // although these are pk from database i think state may have to be an axios request to the create function on database
             album : ' ',
             artist : ' ',
@@ -27,6 +28,7 @@ class SongForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.props.addSong()
 
 
     }
@@ -34,12 +36,12 @@ class SongForm extends Component {
     
     render() { 
         
-        console.log(this.state)
+        
         return (  
             <div>
             <form onSubmit={(event) => this.handleSubmit(event)}>
                 <label>Album :</label>
-                <input type="text" name="album" onChange={this.handleChange} value={this.state.album} />
+                <input type="text" name='album' onChange={this.handleChange} value={this.state.album} />
                 <label>Artist :</label>
                 <input type="text" name="artist" onChange={this.handleChange} value={this.state.artist} /> 
                 <label>Genre :</label>
